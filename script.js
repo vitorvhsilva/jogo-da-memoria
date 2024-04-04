@@ -10,7 +10,7 @@ let interval;
 let firstCard = false;
 let secondCard = false;
 
-//Items array
+//array dos nomes e imagems das cartinhas
 const items = [
   { name: "abelha", image: "./imgs/abelha.png" },
   { name: "anaconda", image: "./imgs/anaconda.png" },
@@ -27,46 +27,46 @@ const items = [
   
 ];
 
-//Initial Time
+//tempo inicial
 let seconds = 0,
   minutes = 0;
-//Initial moves and win count
+//movimentos e contador de vitorias inicial
 let movesCount = 0,
   winCount = 0;
 
-//For timer
+//funcao geradora de tempo
 const timeGenerator = () => {
   seconds += 1;
-  //minutes logic
+  //a cada 60 segundos se tem um minuto
   if (seconds >= 60) {
     minutes += 1;
     seconds = 0;
   }
-  //format time before displaying
+  //formatacao da minutagem 
   let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
   timeValue.innerHTML = `<span>Tempo:</span>${minutesValue}:${secondsValue}`;
 };
 
-//For calculating moves
+//calcular movimentos
 const movesCounter = () => {
   movesCount += 1;
   moves.innerHTML = `<span>Movimentos:</span>${movesCount}`;
 };
 
-//Pick random objects from the items array
+//pegar objetos aleatorios da array
 const generateRandom = (size = 4) => {
-  //temporary array
+  //array temporaria copiando a array de items
   let tempArray = [...items];
-  //initializes cardValues array
+  //inicializa a array do valor das cartas
   let cardValues = [];
-  //size should be double (4*4 matrix)/2 since pairs of objects would exist
+  //todos os cartoes devem ser duplicados (4*4 matrix)/2 pq os pares dos objetos devem existir
   size = (size * size) / 2;
-  //Random object selection
+  //selecionar card aleatorio
   for (let i = 0; i < size; i++) {
     const randomIndex = Math.floor(Math.random() * tempArray.length);
     cardValues.push(tempArray[randomIndex]);
-    //once selected remove the object from temp array
+    //se selecionado tira o objeto da array (para nao repetir o mesmo elemento)
     tempArray.splice(randomIndex, 1);
   }
   return cardValues;
@@ -79,10 +79,10 @@ const matrixGenerator = (cardValues, size = 4) => {
   cardValues.sort(() => Math.random() - 0.5);
   for (let i = 0; i < size * size; i++) {
     /*
-        Create Cards
-        before => front side (contains question mark)
-        after => back side (contains actual image);
-        data-card-values is a custom attribute which stores the names of the cards to match later
+        Criar os Cards
+        before => frente (interrogacao)
+        after => back side (imagem);
+        data-card-values eh um atributo que guarda o nome das cartas para usar depois
       */
     gameContainer.innerHTML += `
      <div class="card-container" data-card-value="${cardValues[i].name}">
@@ -92,38 +92,38 @@ const matrixGenerator = (cardValues, size = 4) => {
      </div>
      `;
   }
-  //Grid
+  //Grid (alinhamento das cartas)
   gameContainer.style.gridTemplateColumns = `repeat(${size},auto)`;
 
-  //Cards
+  //Cartas
   cards = document.querySelectorAll(".card-container");
   cards.forEach((card) => {
     card.addEventListener("click", () => {
-      //If selected card is not matched yet then only run (i.e already matched card when clicked would be ignored)
+      //So roda se a carta nao tiver sido selecionado (se ela ja tiver sido clicada eh ignorado)
       if (!card.classList.contains("matched")) {
-        //flip the cliked card
+        //gira a carta
         card.classList.add("flipped");
-        //if it is the firstcard (!firstCard since firstCard is initially false)
+        //se eh a primeira carta (!firstCard pq a firstCard comeca como falsa)
         if (!firstCard) {
-          //so current card will become firstCard
+          //entao a carta clicada se tornara a firstCard
           firstCard = card;
-          //current cards value becomes firstCardValue
+          //e o nome da carta se torna o firstCardValue
           firstCardValue = card.getAttribute("data-card-value");
         } else {
-          //increment moves since user selected second card
+          //incrementa movimentos desde que o usuario selecionou a segunda carta
           movesCounter();
-          //secondCard and value
+          //segunda carta selecionada e o nome dela
           secondCard = card;
           let secondCardValue = card.getAttribute("data-card-value");
           if (firstCardValue == secondCardValue) {
-            //if both cards match add matched class so these cards would beignored next time
+            //se ambas forem selecionadas (acerto), nao dara pra selecionar elas denovo
             firstCard.classList.add("matched");
             secondCard.classList.add("matched");
-            //set firstCard to false since next card would be first now
+            //coloca a firstCard como false pq a proxima carta sera a primeira agora
             firstCard = false;
-            //winCount increment as user found a correct match
+            //winCount incrementa se o usuario encontrar duas iguais
             winCount += 1;
-            //check if winCount ==half of cardValues
+            //se o winCount ter o mesmo valor de metade das cartas (ou seja, todas as cartas foram achadas), o jogo acaba
             if (winCount == Math.floor(cardValues.length / 2)) {
                 let minuto = minutesValue
                 let segundos = secondsValue
@@ -132,8 +132,7 @@ const matrixGenerator = (cardValues, size = 4) => {
                 stopGame();
             }
           } else {
-            //if the cards dont match
-            //flip the cards back to normal
+            //se as cartas nao forem iguais, retornar elas pro normal
             let [tempFirst, tempSecond] = [firstCard, secondCard];
             firstCard = false;
             secondCard = false;
@@ -148,23 +147,23 @@ const matrixGenerator = (cardValues, size = 4) => {
   });
 };
 
-//Start game
+//Comecar o jogo
 startButton.addEventListener("click", () => {
   movesCount = 0;
   seconds = 0;
   minutes = 0;
-  //controls amd buttons visibility
+  //visibilidade dos botoes
   controls.classList.add("hide");
   stopButton.classList.remove("hide");
   startButton.classList.add("hide");
-  //Start timer
+  //comecar o timer
   interval = setInterval(timeGenerator, 1000);
-  //initial moves
+  //iniciar movimentos
   moves.innerHTML = `<span>Movimentos:</span> ${movesCount}`;
   initializer();
 });
 
-//Stop game
+//Parar o jogo
 stopButton.addEventListener(
   "click",
   (stopGame = () => {
@@ -175,7 +174,7 @@ stopButton.addEventListener(
   })
 );
 
-//Initialize values and func calls
+//inicializar valores e funcoes
 const initializer = () => {
   result.innerText = "";
   winCount = 0;
