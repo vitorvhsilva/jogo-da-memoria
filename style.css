@@ -127,3 +127,50 @@ button {
     font-size: 1.8em;
     margin: 0.6em 0 1em 0;
 }
+
+@media screen and (max-width: 560px) {
+    .wrapper {
+        width: 20.87em;
+    }
+    
+    .game-container {
+        width: 70%;
+    }
+    
+    .card-container {
+        width: 5em;
+        height: 5em;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .wrapper {
+        width: 15em;
+    }
+    
+    .game-container {
+        width: 70%;
+    }
+    
+    .card-container {
+        width: 4.5em;
+        height: 4.5em;
+        left: -50%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .wrapper {
+        width: 13em;
+    }
+    
+    .game-container {
+        width: 70%;
+    }
+    
+    .card-container {
+        width: 4em;
+        height: 4em;
+        left: -60%;
+    }
+}

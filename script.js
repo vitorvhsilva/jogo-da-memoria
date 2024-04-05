@@ -5,6 +5,7 @@ const stopButton = document.getElementById("stop");
 const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
+const wrapper = document.querySelector(".wrapper")
 let cards;
 let interval;
 let firstCard = false;
@@ -155,6 +156,7 @@ startButton.addEventListener("click", () => {
   seconds = 0;
   minutes = 0;
   //visibilidade dos botoes
+  wrapper.classList.remove("hide");
   controls.classList.add("hide");
   stopButton.classList.remove("hide");
   startButton.classList.add("hide");
@@ -169,6 +171,7 @@ startButton.addEventListener("click", () => {
 stopButton.addEventListener(
   "click",
   (stopGame = () => {
+    wrapper.classList.add("hide");
     controls.classList.remove("hide");
     stopButton.classList.add("hide");
     startButton.classList.remove("hide");
