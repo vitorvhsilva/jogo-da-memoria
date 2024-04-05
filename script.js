@@ -127,10 +127,12 @@ const matrixGenerator = (cardValues, size = 4) => {
             winCount += 1;
             //se o winCount ter o mesmo valor de metade das cartas (ou seja, todas as cartas foram achadas), o jogo acaba
             if (winCount == Math.floor(cardValues.length / 2)) {
-                result.innerHTML = `<h2>Você Venceu!</h2>
-                <h4>Movimentos: ${movesCount}</h4>
-                <h4>Tempo Total: ${minutes}:${seconds}</h4>`;
-                stopGame();
+                setTimeout(() => {
+                  result.innerHTML = `<h2>Você Venceu!</h2>
+                  <h4>Movimentos: ${movesCount}</h4>
+                  <h4>Tempo Total: ${minutes}:${seconds}</h4>`;
+                  stopGame();
+                }, 450)
             }
           } else {
             //se as cartas nao forem iguais, retornar elas pro normal
