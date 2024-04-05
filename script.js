@@ -9,6 +9,7 @@ let cards;
 let interval;
 let firstCard = false;
 let secondCard = false;
+let podeClicar = true;
 
 //array dos nomes e imagems das cartinhas
 const items = [
@@ -100,7 +101,7 @@ const matrixGenerator = (cardValues, size = 4) => {
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       //So roda se a carta nao tiver sido selecionado (se ela ja tiver sido clicada eh ignorado)
-      if (!card.classList.contains("matched")) {
+      if (!card.classList.contains("matched") && podeClicar) {
         //gira a carta
         card.classList.add("flipped");
         //se eh a primeira carta (!firstCard pq a firstCard comeca como falsa)
@@ -135,10 +136,12 @@ const matrixGenerator = (cardValues, size = 4) => {
             let [tempFirst, tempSecond] = [firstCard, secondCard];
             firstCard = false;
             secondCard = false;
+            podeClicar = false
             let delay = setTimeout(() => {
               tempFirst.classList.remove("flipped");
               tempSecond.classList.remove("flipped");
-            }, 900);
+              podeClicar = true
+            }, 450);
           }
         }
       }
