@@ -165,11 +165,7 @@ const matrixGenerator = (cardValues, size = 4) => {
                   result.innerHTML = `<h2>Você venceu o ${dificuldade} nível!</h2>
                   <h4>Movimentos: ${movesCount}</h4>
                   <h4>Tempo Total: ${minutes}:${seconds}</h4>`;
-                  stopGame();
-                  setTimeout(() => {
-                    dificuldade++
-                    initializer();
-                  }, 5000)
+                  continueGame();
                 }, 500)
             }
           } else {
@@ -232,6 +228,33 @@ stopButton.addEventListener(
     clearInterval(interval);
   })
 );
+
+continueGame = () => {
+  wrapper.classList.add("hide");
+  controls.classList.remove("hide");
+  stopButton.classList.add("hide");
+  clearInterval(interval);
+  setTimeout(() => {
+    tempoAcabou = false
+    dificuldade++
+    if (dificuldade == 1){
+      seconds = 10;
+      minutes = 1;
+    } else if (dificuldade == 2) {
+      seconds = 50;
+      minutes = 0;
+    } else if (dificuldade == 3) {
+      seconds = 20;
+      minutes = 0;
+    }
+    interval = setInterval(timeGenerator, 1000);
+    wrapper.classList.remove("hide");
+    controls.classList.add("hide");
+    stopButton.classList.remove("hide");
+    moves.innerHTML = `<span>Movimentos:</span> ${movesCount}`;
+    initializer();
+  }, 5000)
+}
 
 //inicializar valores e funcoes
 const initializer = () => {
