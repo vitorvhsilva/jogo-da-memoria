@@ -11,6 +11,8 @@ let interval;
 let firstCard = false;
 let secondCard = false;
 let podeClicar = true;
+let tempoAcabou = false;
+let dificuldade = 3;
 
 //array dos nomes e imagems das cartinhas
 const items = [
@@ -26,7 +28,7 @@ const items = [
   { name: "preguica", image: "./imgs/preguica.png" },
   { name: "tigre", image: "./imgs/tigre.png" },
   { name: "tucano", image: "./imgs/tucano.png" },
-  
+
 ];
 
 //tempo inicial
@@ -37,8 +39,6 @@ let seconds = 0,
 //movimentos e contador de vitorias inicial
 let movesCount = 0,
   winCount = 0;
-
-let tempoAcabou = false
 
 //funcao geradora de tempo
 const timeGenerator = () => {
@@ -191,12 +191,20 @@ startButton.addEventListener("click", () => {
   tempoAcabou = false
 
   movesCount = 0;
-  
   secondsShowed = 0 
   minutesShowed = 0
 
-  seconds = 5;
-  minutes = 0;
+  if (dificuldade == 1){
+    seconds = 10;
+    minutes = 1;
+  } else if (dificuldade == 2) {
+    seconds = 50;
+    minutes = 0;
+  } else if (dificuldade == 3) {
+    seconds = 20;
+    minutes = 0;
+  }
+
   //visibilidade dos botoes
   wrapper.classList.remove("hide");
   controls.classList.add("hide");
