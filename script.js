@@ -31,23 +31,57 @@ const items = [
 
 //tempo inicial
 let seconds = 0,
-  minutes = 0;
+  minutes = 0, 
+  secondsShowed = 0, 
+  minutesShowed = 0;
 //movimentos e contador de vitorias inicial
 let movesCount = 0,
   winCount = 0;
 
+let tempoAcabou = false
+
 //funcao geradora de tempo
 const timeGenerator = () => {
-  seconds += 1;
-  //a cada 60 segundos se tem um minuto
-  if (seconds >= 60) {
-    minutes += 1;
-    seconds = 0;
+  seconds -= 1;
+  secondsShowed += 1 
+
+  if (seconds < 1) {
+    if (minutes > 0) {
+      minutes -= 1;
+      seconds = 60;
+    } else {
+      tempoAcabou = true
+    }
   }
+
+  if (secondsShowed >= 60) {
+    minutesShowed += 1;
+    secondsShowed = 0;
+  }
+
   //formatacao da minutagem 
   let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
-  timeValue.innerHTML = `<span>Tempo:</span>${minutesValue}:${secondsValue}`;
+  timeValue.innerHTML = `<span>Tempo Restante:</span>${minutesValue}:${secondsValue}`;
+
+  let secondsShowedValue = secondsShowed < 10 ? `0${secondsShowed}` : secondsShowed;
+  let minutesShowedValue = minutesShowed < 10 ? `0${minutesShowed}` : minutesShowed;
+
+
+  timePassed = () => {
+    wrapper.classList.add("hide");
+    controls.classList.remove("hide");
+    stopButton.classList.add("hide");
+    startButton.classList.remove("hide");
+    result.innerHTML = `<h2>O tempo acabou :( </h2>
+    <h4>Movimentos: ${movesCount}</h4>
+    <h4>Tempo Total: ${minutesShowedValue}:${secondsShowedValue}</h4>`;
+    clearInterval(interval);
+  }
+
+  if (tempoAcabou) {
+    timePassed()
+  }
 };
 
 //calcular movimentos
@@ -154,8 +188,14 @@ const matrixGenerator = (cardValues, size = 4) => {
 
 //Comecar o jogo
 startButton.addEventListener("click", () => {
+  tempoAcabou = false
+
   movesCount = 0;
-  seconds = 0;
+  
+  secondsShowed = 0 
+  minutesShowed = 0
+
+  seconds = 5;
   minutes = 0;
   //visibilidade dos botoes
   wrapper.classList.remove("hide");
