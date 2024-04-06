@@ -102,7 +102,7 @@ const matrixGenerator = (cardValues, size = 4) => {
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       //So roda se a carta nao tiver sido selecionado (se ela ja tiver sido clicada eh ignorado)
-      if (!card.classList.contains("matched") && podeClicar) {
+      if (!card.classList.contains("matched") && !card.classList.contains("flipped") && podeClicar) {
         //gira a carta
         card.classList.add("flipped");
         //se eh a primeira carta (!firstCard pq a firstCard comeca como falsa)
