@@ -161,12 +161,23 @@ const matrixGenerator = (cardValues, size = 4) => {
             winCount += 1;
             //se o winCount ter o mesmo valor de metade das cartas (ou seja, todas as cartas foram achadas), o jogo acaba
             if (winCount == Math.floor(cardValues.length / 2)) {
+              if (dificuldade <= 2) {
                 setTimeout(() => {
-                  result.innerHTML = `<h2>Você venceu o ${dificuldade} nível!</h2>
-                  <h4>Movimentos: ${movesCount}</h4>
-                  <h4>Tempo Total: ${minutes}:${seconds}</h4>`;
-                  continueGame();
-                }, 500)
+                    result.innerHTML = `<h2>Você venceu o ${dificuldade} nível!</h2>
+                    <h4>Movimentos: ${movesCount}</h4>
+                    <h4>Tempo Total: ${minutesShowed}:${secondsShowed}</h4>`;
+                    dificuldade++
+                    continueGame();
+                  }, 500) 
+              }
+              if (dificuldade >= 3) {
+                setTimeout(() => {
+                    result.innerHTML = `<h2>Você venceu o jogo :) </h2>
+                    <h4>Movimentos: ${movesCount}</h4>
+                    <h4>Tempo Total: ${minutesShowed}:${secondsShowed}</h4>`;
+                    stopGame()
+                  }, 500) 
+                }
             }
           } else {
             //se as cartas nao forem iguais, retornar elas pro normal
@@ -194,16 +205,7 @@ startButton.addEventListener("click", () => {
   secondsShowed = 0 
   minutesShowed = 0
 
-  if (dificuldade == 1){
-    seconds = 10;
-    minutes = 1;
-  } else if (dificuldade == 2) {
-    seconds = 50;
-    minutes = 0;
-  } else if (dificuldade == 3) {
-    seconds = 20;
-    minutes = 0;
-  }
+  dificuldade = 1
 
   //visibilidade dos botoes
   wrapper.classList.remove("hide");
@@ -236,15 +238,14 @@ continueGame = () => {
   clearInterval(interval);
   setTimeout(() => {
     tempoAcabou = false
-    dificuldade++
     if (dificuldade == 1){
-      seconds = 10;
+      seconds = 30;
       minutes = 1;
     } else if (dificuldade == 2) {
-      seconds = 50;
+      seconds = 59;
       minutes = 0;
     } else if (dificuldade == 3) {
-      seconds = 20;
+      seconds = 40;
       minutes = 0;
     }
     interval = setInterval(timeGenerator, 1000);
