@@ -175,6 +175,7 @@ const matrixGenerator = (cardValues, size = 4) => {
                     result.innerHTML = `<h2>Você venceu o jogo :) </h2>
                     <h4>Movimentos: ${movesCount}</h4>
                     <h4>Tempo Total: ${minutesShowed}:${secondsShowed}</h4>`;
+                    dificuldade = 0
                     stopGame()
                   }, 500) 
                 }
@@ -205,7 +206,16 @@ startButton.addEventListener("click", () => {
   secondsShowed = 0 
   minutesShowed = 0
 
-  dificuldade = 1
+  if (dificuldade == 1){
+    seconds = 30;
+    minutes = 1;
+  } else if (dificuldade == 2) {
+    seconds = 59;
+    minutes = 0;
+  } else if (dificuldade == 3) {
+    seconds = 40;
+    minutes = 0;
+  }
 
   //visibilidade dos botoes
   wrapper.classList.remove("hide");
