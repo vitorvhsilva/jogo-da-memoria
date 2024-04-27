@@ -175,7 +175,7 @@ const matrixGenerator = (cardValues, size = 4) => {
                     result.innerHTML = `<h2>Você venceu o jogo :) </h2>
                     <h4>Movimentos: ${movesCount}</h4>
                     <h4>Tempo Total: ${minutesShowed}:${secondsShowed}</h4>`;
-                    dificuldade = 0
+                    dificuldade = 1
                     stopGame()
                   }, 500) 
                 }
@@ -233,6 +233,9 @@ startButton.addEventListener("click", () => {
 stopButton.addEventListener(
   "click",
   (stopGame = () => {
+    movesCount = 0;
+    secondsShowed = 0 
+    minutesShowed = 0
     wrapper.classList.add("hide");
     controls.classList.remove("hide");
     stopButton.classList.add("hide");
@@ -242,12 +245,12 @@ stopButton.addEventListener(
 );
 
 continueGame = () => {
+  tempoAcabou = false
   wrapper.classList.add("hide");
   controls.classList.remove("hide");
   stopButton.classList.add("hide");
   clearInterval(interval);
   setTimeout(() => {
-    tempoAcabou = false
     if (dificuldade == 1){
       seconds = 30;
       minutes = 1;
