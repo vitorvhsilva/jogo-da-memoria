@@ -25,10 +25,15 @@ const items = [
   { name: "macaco", image: "./imgs/macaco.png" },
   { name: "passaro", image: "./imgs/passaro.png" },
   { name: "piranha", image: "./imgs/piranha.png" },
+  { name: "piranharosa", image: "./imgs/piranharosa.png" },
   { name: "preguica", image: "./imgs/preguica.png" },
   { name: "tigre", image: "./imgs/tigre.png" },
   { name: "tucano", image: "./imgs/tucano.png" },
-
+  { name: "avatar", image: "./imgs/avatar.jpg" },
+  { name: "theboy1", image: "./imgs/theboy1.jpg" },
+  { name: "theboy2", image: "./imgs/theboy2.jpg" },
+  { name: "theboy3", image: "./imgs/theboy3.jpg" },
+  { name: "theboy4", image: "./imgs/theboy4.jpg" },
 ];
 
 //tempo inicial
@@ -91,7 +96,7 @@ const movesCounter = () => {
 };
 
 //pegar objetos aleatorios da array
-const generateRandom = (size = 4) => {
+const generateRandom = (size = 6) => {
   //array temporaria copiando a array de items
   let tempArray = [...items];
   //inicializa a array do valor das cartas
@@ -108,7 +113,7 @@ const generateRandom = (size = 4) => {
   return cardValues;
 };
 
-const matrixGenerator = (cardValues, size = 4) => {
+const matrixGenerator = (cardValues, size = 6) => {
   gameContainer.innerHTML = "";
   cardValues = [...cardValues, ...cardValues];
   //simple shuffle
@@ -208,7 +213,7 @@ startButton.addEventListener("click", () => {
 
   if (dificuldade == 1){
     seconds = 30;
-    minutes = 1;
+    minutes = 6;
   } else if (dificuldade == 2) {
     seconds = 59;
     minutes = 0;
@@ -253,7 +258,7 @@ continueGame = () => {
   setTimeout(() => {
     if (dificuldade == 1){
       seconds = 30;
-      minutes = 1;
+      minutes = 4;
     } else if (dificuldade == 2) {
       seconds = 59;
       minutes = 0;

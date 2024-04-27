@@ -72,6 +72,11 @@ body {
     transform: rotateY(180deg);
 }
 
+.card-after img {
+    width: 64px;
+    height: 64px;
+}
+
 .card-container.flipped .card-before {
     transform: rotateY(180deg);
 }
@@ -116,7 +121,7 @@ button {
 }
 
 #result {
-        text-align: center;
+    text-align: center;
 }
 
 #result h2 {
