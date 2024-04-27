@@ -1,5 +1,6 @@
 const moves = document.getElementById("moves-count");
 const timeValue = document.getElementById("time");
+const difficultyValue = document.getElementById("dificuldade");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
 const gameContainer = document.querySelector(".game-container");
@@ -36,6 +37,7 @@ const items = [
   { name: "theboy4", image: "./imgs/theboy4.jpg" },
 ];
 
+let tamanho = 4
 //tempo inicial
 let seconds = 0,
   minutes = 0, 
@@ -44,6 +46,7 @@ let seconds = 0,
 //movimentos e contador de vitorias inicial
 let movesCount = 0,
   winCount = 0;
+
 
 //funcao geradora de tempo
 const timeGenerator = () => {
@@ -96,13 +99,13 @@ const movesCounter = () => {
 };
 
 //pegar objetos aleatorios da array
-const generateRandom = (size = 6) => {
+const generateRandom = (size = tamanho) => {
   //array temporaria copiando a array de items
   let tempArray = [...items];
   //inicializa a array do valor das cartas
   let cardValues = [];
   //todos os cartoes devem ser duplicados (4*4 matrix)/2 pq os pares dos objetos devem existir
-  size = (size * size) / 2;
+  size = (size * size) / 2; 
   //selecionar card aleatorio
   for (let i = 0; i < size; i++) {
     const randomIndex = Math.floor(Math.random() * tempArray.length);
@@ -113,7 +116,7 @@ const generateRandom = (size = 6) => {
   return cardValues;
 };
 
-const matrixGenerator = (cardValues, size = 6) => {
+const matrixGenerator = (cardValues, size = tamanho) => {
   gameContainer.innerHTML = "";
   cardValues = [...cardValues, ...cardValues];
   //simple shuffle
@@ -213,13 +216,16 @@ startButton.addEventListener("click", () => {
 
   if (dificuldade == 1){
     seconds = 30;
-    minutes = 6;
+    minutes = 1;
   } else if (dificuldade == 2) {
     seconds = 59;
     minutes = 0;
+    tamanho = 4
   } else if (dificuldade == 3) {
-    seconds = 40;
-    minutes = 0;
+    seconds = 30;
+    minutes = 2;
+    tamanho = 6
+    wrapper.style.width = '45em'
   }
 
   //visibilidade dos botoes
@@ -258,13 +264,16 @@ continueGame = () => {
   setTimeout(() => {
     if (dificuldade == 1){
       seconds = 30;
-      minutes = 4;
+      minutes = 1;
     } else if (dificuldade == 2) {
       seconds = 59;
       minutes = 0;
+      tamanho = 4
     } else if (dificuldade == 3) {
-      seconds = 40;
-      minutes = 0;
+      seconds = 30;
+      minutes = 2;
+      tamanho = 6
+      wrapper.style.width = '45em'
     }
     interval = setInterval(timeGenerator, 1000);
     wrapper.classList.remove("hide");
