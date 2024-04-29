@@ -13,7 +13,7 @@ let firstCard = false;
 let secondCard = false;
 let podeClicar = true;
 let tempoAcabou = false;
-let dificuldade = 1;
+let dificuldade = 3;
 
 //array dos nomes e imagems das cartinhas
 const items = [
@@ -265,10 +265,13 @@ continueGame = () => {
     if (dificuldade == 1){
       seconds = 30;
       minutes = 1;
+      tamanho = 4
+      wrapper.style.width = '26.87em'
     } else if (dificuldade == 2) {
       seconds = 59;
       minutes = 0;
       tamanho = 4
+      wrapper.style.width = '26.87em'
     } else if (dificuldade == 3) {
       seconds = 30;
       minutes = 2;
